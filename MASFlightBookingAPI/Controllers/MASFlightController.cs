@@ -14,7 +14,7 @@ namespace MASFlightBookingAPI.Controllers
         {
             _masFlightRepository = masFlightRepository;
         }
-        [HttpGet("checkFlightDetails")] //readonly i.e retrieiving list of all flight bookings from the database
+        [HttpGet("Check Flight Details")] //readonly i.e retrieiving list of all flight bookings from the database
         public IActionResult CheckMASFlight_Details()
         {
             var checkFlightDetails = _masFlightRepository.CheckMASFlight_Details();
@@ -27,7 +27,7 @@ namespace MASFlightBookingAPI.Controllers
             return Ok(checkFlightDetails);
 
         }
-        [HttpPost("buyFlightTicket")]
+        [HttpPost("Buy Flight Ticket")]
 
         //user will be able to create/book ticket and save changes
         public IActionResult BuyFlight_Ticket(MASFlightBookingModel masflight)
@@ -40,7 +40,7 @@ namespace MASFlightBookingAPI.Controllers
             }
             return BadRequest();
         }
-        [HttpDelete("{bookingId}")]
+        [HttpDelete("{Revoke Flight}")]
         public IActionResult Revoke_Flight(long BookingId)
         {
             var bookingId = _masFlightRepository.Revoke_Flight(BookingId);
@@ -52,7 +52,7 @@ namespace MASFlightBookingAPI.Controllers
             return NotFound();
 
         }
-        [HttpPut("existBookingId")]
+        [HttpPut("Update Flight Details ")]
         public IActionResult UpdateFlight_Details(MASFlightBooking masflight)
         {
             var existBookingId = _masFlightRepository.UpdateFlight_Details(masflight);
