@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace MASFlightBookingAPI.Repositories
 {
-    public class MASFlightRepository :IMASFlightRepository
+    public class MASFlightRepository : IMASFlightRepository
     {
 
         private MASFlightDbContext _masFlightDbContext;
-        private PaymentRepository _paymentRepository;
+        private readonly IPaymentRepository _paymentRepository;
 
-        public MASFlightRepository(MASFlightDbContext masFlightDbContext, PaymentRepository paymentRepository)
+        public MASFlightRepository(MASFlightDbContext masFlightDbContext, IPaymentRepository paymentRepository)
         {
             _masFlightDbContext = masFlightDbContext;
-            _paymentRepository = paymentRepository;
+            _paymentRepository =  paymentRepository;
         }
         public ResponseModel Revoke_Flight(long BookingId)
         {
@@ -93,6 +93,8 @@ namespace MASFlightBookingAPI.Repositories
 
                 };
                 var request = _paymentRepository.InitiatePayment(sendPaymentData).Result;
+
+
                 var buyTicket = new MASFlightBooking
                 {
                     TicketName = masflight.TicketName,
@@ -103,9 +105,6 @@ namespace MASFlightBookingAPI.Repositories
                     flightCategories = masflight.flightCategories,
                     travelerAge = masflight.travelerAge,
                     airline = masflight.airline,
-
-
-
 
                 };
 

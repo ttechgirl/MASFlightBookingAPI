@@ -5,14 +5,11 @@ namespace MASFlightBookingAPI.Repositories
 {
     public interface IPaymentRepository
     {
-        public interface IPaymentRepository
-        {
-            Task<PaymentResponseModel> InitiatePayment(PaymentRequestModel model);
+        Task<PaymentResponseModel> InitiatePayment(PaymentRequestModel model);
 
-            Task<PaymentVerificationResponseModel> VerifyPayment(string transactionId);
-
-        }
-
+        Task<PaymentVerificationResponseModel> VerifyPayment(string transactionId);
 
     }
+
+
 }

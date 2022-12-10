@@ -97,7 +97,7 @@ namespace MASFlightBookingAPI
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+          
 
             app.UseAuthorization();
             app.UseAuthentication();

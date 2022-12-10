@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MASFlightBookingAPI.Migrations
 {
     [DbContext(typeof(MASFlightDbContext))]
-    [Migration("20221207223820_updated")]
+    [Migration("20221208224201_updated")]
     partial class updated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

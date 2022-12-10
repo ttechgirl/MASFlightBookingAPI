@@ -6,18 +6,19 @@ namespace MASFlightBookingAPI.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+           /* migrationBuilder.DropColumn(
                 name: "Discriminator",
-                table: "Users");
+                table: "Users");*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+           /* migrationBuilder.AddColumn<string>(
                 name: "Discriminator",
                 table: "Users",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: "");*/
         }
     }
 }

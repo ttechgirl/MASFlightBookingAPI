@@ -115,6 +115,10 @@ namespace MASFlightBookingAPI.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -155,7 +159,7 @@ namespace MASFlightBookingAPI.Migrations
 
                     b.ToTable("Users");
 
-                    b.HasDiscriminator();
+                    b.HasDiscriminator<string>("Discriminator");
                 });
 #pragma warning restore 612, 618
         }
