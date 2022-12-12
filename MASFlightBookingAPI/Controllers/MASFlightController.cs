@@ -14,20 +14,31 @@ namespace MASFlightBookingAPI.Controllers
         {
             _masFlightRepository = masFlightRepository;
         }
-        [HttpGet("Check Flight Details")] //readonly i.e retrieiving list of all flight bookings from the database
-        public IActionResult CheckMASFlight_Details()
+
+        [HttpGet("Get_Available_Flights")]
+        public IActionResult GetMASFlights()
         {
-            var checkFlightDetails = _masFlightRepository.CheckMASFlight_Details();
-            if (checkFlightDetails == null)
+            var availableFlights = _masFlightRepository.GetMASFlights();
+            if (availableFlights == null)
             {
                 return NotFound();
 
 
             }
-            return Ok(checkFlightDetails);
+            return Ok(availableFlights);
 
         }
-        [HttpPost("Buy Flight Ticket")]
+       
+
+        [HttpGet("Check_Flight_Details")] //readonly i.e retrieiving list of all flight bookings from the database
+        public IActionResult CheckMASFlight_Details(long BookingId)
+        {
+            var checkFlightDetails = _masFlightRepository.CheckMASFlight_Details(BookingId);
+            return Ok(checkFlightDetails);
+        }
+
+
+        [HttpPost("Buy_Flight_Ticket")]
 
         //user will be able to create/book ticket and save changes
         public IActionResult BuyFlight_Ticket(MASFlightBookingModel masflight)
@@ -40,7 +51,8 @@ namespace MASFlightBookingAPI.Controllers
             }
             return BadRequest();
         }
-        [HttpDelete("{Revoke Flight}")]
+
+        [HttpDelete("{Revoke_Flight}")]
         public IActionResult Revoke_Flight(long BookingId)
         {
             var bookingId = _masFlightRepository.Revoke_Flight(BookingId);
@@ -52,7 +64,8 @@ namespace MASFlightBookingAPI.Controllers
             return NotFound();
 
         }
-        [HttpPut("Update Flight Details ")]
+
+        [HttpPut("Update_Flight_Details")]
         public IActionResult UpdateFlight_Details(MASFlightBooking masflight)
         {
             var existBookingId = _masFlightRepository.UpdateFlight_Details(masflight);

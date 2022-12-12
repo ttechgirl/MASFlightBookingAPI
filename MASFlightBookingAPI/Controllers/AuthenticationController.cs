@@ -3,6 +3,7 @@ using MASFlightBookingAPI.View_Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -49,6 +50,7 @@ namespace MASFlightBookingAPI.Controllers
                 {
                     var user = new Users()
                     {
+                        UserName= registerModel.Username,
                         Username = registerModel.Username,
                         Email = registerModel.Email,
                         SecurityStamp = Guid.NewGuid().ToString()
@@ -56,11 +58,13 @@ namespace MASFlightBookingAPI.Controllers
                     var result = await usermanager.CreateAsync(user, registerModel.Password);
                     if (!result.Succeeded)
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError("User creation unsuccessful,please check details", error.Description);
+                      /* foreach (var error in result.Errors)
+                      {
+                       ModelState.AddModelError("User creation unsuccessful,please check details", error.Description);
 
-                        }
+
+                      }*/
+                       return BadRequest(new ResponseModel { Success = false, Error = result.Errors.ToString()});
                     }
                     else
                     {
@@ -76,7 +80,7 @@ namespace MASFlightBookingAPI.Controllers
                         return Ok(new ResponseModel { Success = true, Error = "User successfully created" });
                     }
                 }
-                return Ok();
+                return BadRequest(new ResponseModel { Success = false, Error = "User details is invalid" });
 
             }
 

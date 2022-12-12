@@ -20,7 +20,7 @@ namespace MASFlightBookingAPI.Repositories
         public ResponseModel Revoke_Flight(long BookingId)
         {
             var response = new ResponseModel();
-            var bookingId = GetMASFlights(BookingId);
+            var bookingId = CheckMASFlight_Details(BookingId);
             if (bookingId != null)
             {
 
@@ -28,7 +28,7 @@ namespace MASFlightBookingAPI.Repositories
                 _masFlightDbContext.SaveChanges();
 
                 response.Success = true;
-                response.Error = "Ticket successfully deleted, you can book ";
+                response.Error = "Ticket successfully deleted";
 
             }
             else
@@ -39,9 +39,13 @@ namespace MASFlightBookingAPI.Repositories
             return response;
         }
 
+          public List<MASFlightBooking> GetMASFlights()
+        {
+            var ticketExist = _masFlightDbContext.Set<MASFlightBooking>().ToList();
+            return ticketExist;
+        }
 
-
-        public MASFlightBooking GetMASFlights(long BookingId)
+        public MASFlightBooking CheckMASFlight_Details(long BookingId)
         {
 
             var ticketExist = _masFlightDbContext.Set<MASFlightBooking>().FirstOrDefault(t => t.BookingId == BookingId);
@@ -50,11 +54,7 @@ namespace MASFlightBookingAPI.Repositories
             return ticketExist;
         }
 
-        public List<MASFlightBooking> CheckMASFlight_Details()
-        {
-            var ticketExist = _masFlightDbContext.Set<MASFlightBooking>().ToList();
-            return ticketExist;
-        }
+      
 
         public ResponseModel BuyFlight_Ticket(MASFlightBookingModel masflight)
         {
